@@ -20,6 +20,8 @@ If you face any issues, please report them on [GitHub](https://github.com/JetBra
 
 You can open the web application by running the `:composeApp:wasmJsBrowserDevelopmentRun` Gradle task.
 
+Ajout au Readme.md
+
 Projet Android - Rick and Morty API
 
 Ce projet Android implémente une application basée sur l'API Rick and Morty. L'architecture adoptée est une approche Clean Architecture combinée avec les principes de MVVM (Model-View-ViewModel) pour assurer une séparation claire des responsabilités, améliorer la testabilité et faciliter la maintenance.
@@ -79,16 +81,4 @@ Single Source of Truth : Les données proviennent d'une source unique (base loca
 Séparation claire des responsabilités : Facilite les tests unitaires et l'évolution de l'application.
 
 Injection de dépendances : Simplifie la gestion des dépendances et améliore la modularité.
-
-Installation et Exécution
-
-Clonez le projet puis ouvrez-le dans Android Studio :
-
-git clone https://github.com/votre-utilisateur/rick-and-morty-api.git
-
-Compilez et lancez l'application sur un émulateur ou un appareil physique.
-
-Contribution
-
-Les contributions sont les bienvenues ! Merci d'ouvrir une issue pour toute suggestion ou un pull request pour proposer des améliorations.
 
