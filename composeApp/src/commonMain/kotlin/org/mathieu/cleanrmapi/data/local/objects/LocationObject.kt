@@ -10,6 +10,12 @@ import org.mathieu.cleanrmapi.domain.location.models.LocationPreview
 import org.mathieu.cleanrmapi.domain.location.models.Location
 
 
+/** Represents a location entity stored in the SQLite database. This object provides fields
+ * necessary to represent all the attributes of a location from the data source.
+ * The object is specifically tailored for SQLite storage using Realm.
+ *
+ *
+ */
 @Entity(tableName = RMDatabase.LOCATION_TABLE)
 class LocationObject(
     @PrimaryKey
@@ -22,6 +28,9 @@ class LocationObject(
     val created: String
 )
 
+/** Represents detailed information
+ * about a location, received from an API call
+ */
 internal fun LocationResponse.toDBObject() = LocationObject(
     id = id,
     name = name,
@@ -32,6 +41,9 @@ internal fun LocationResponse.toDBObject() = LocationObject(
 
 )
 
+/**
+ *
+ */
 internal fun LocationObject.toModel() = Location(
     id = id,
     name = name,
@@ -40,6 +52,9 @@ internal fun LocationObject.toModel() = Location(
     residents = emptyList()
 )
 
+/**
+ *
+ */
 internal fun LocationObject.toPreview() = LocationPreview(
     id = id,
     name = name,

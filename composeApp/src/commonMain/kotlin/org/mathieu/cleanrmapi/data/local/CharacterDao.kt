@@ -22,4 +22,7 @@ interface CharacterDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(character: CharacterObject)
 
+    @Query("select * from ${RMDatabase.CHARACTER_TABLE} where id in (:ids)")
+    suspend fun getCharactersByIds(ids: List<Int>): List<CharacterObject>
 }
+

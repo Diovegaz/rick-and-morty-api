@@ -90,3 +90,4 @@ internal fun CharacterObject.toModel() = Character(
     type = type,
     avatarUrl = image
 )
+

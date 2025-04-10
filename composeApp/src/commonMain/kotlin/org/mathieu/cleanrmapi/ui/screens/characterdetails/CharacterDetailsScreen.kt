@@ -49,6 +49,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.mathieu.cleanrmapi.domain.character.models.CharacterGender
 import org.mathieu.cleanrmapi.domain.character.models.CharacterStatus
 import org.mathieu.cleanrmapi.domain.episode.models.Episode
+import org.mathieu.cleanrmapi.domain.location.models.LocationPreview
 import org.mathieu.cleanrmapi.ui.core.composables.Avatar
 import org.mathieu.cleanrmapi.ui.core.composables.BackArrow
 import org.mathieu.cleanrmapi.ui.core.composables.IconWithImage
@@ -150,7 +151,8 @@ private object CharacterDetailsContent {
 
             Header(
                 state = state,
-                offsetY = offsetY
+                offsetY = offsetY,
+                onAction = onAction
             )
 
             LazyColumn {
@@ -183,7 +185,8 @@ private object CharacterDetailsContent {
     @Composable
     private fun Header(
         state: CharacterDetailsState.Loaded,
-        offsetY: Float
+        offsetY: Float,
+        onAction: (CharacterDetailsAction) -> Unit
     ) {
 
         val density = LocalDensity.current
@@ -217,9 +220,10 @@ private object CharacterDetailsContent {
                 )
 
                 AdditionalInfo(
+                    onAction ,
                     gender = state.gender,
                     status = state.status,
-                    location = state.location
+                    location = state.location,
                 )
 
             }
@@ -228,10 +232,12 @@ private object CharacterDetailsContent {
 
 
     @Composable
+
     private fun AdditionalInfo(
+        onAction: (CharacterDetailsAction) -> Unit,
         gender: CharacterGender,
         status: CharacterStatus,
-        location: String
+        location: LocationPreview
     ) = Row(
         modifier = Modifier
             .padding(8.dp)
@@ -249,9 +255,13 @@ private object CharacterDetailsContent {
 
         Spacer(Modifier.width(16.dp))
 
-        IconWithImage(
-            modifier = Modifier.weight(1f),
-            imageVector = Icons.Rounded.Home, text = location
+        LocationCard(
+            modifier = Modifier
+                .weight(1f)
+                .clickable {
+                    onAction(CharacterDetailsAction.SelectedLocation(location))
+                },
+            location = location
         )
 
         Spacer(Modifier.width(16.dp))
@@ -287,7 +297,25 @@ private object CharacterDetailsContent {
 
         }
 
+    @Composable
+    private fun LocationCard(
+        modifier: Modifier, location: LocationPreview
+    ) =
+        Column(
+            modifier = modifier
+                .shadow(1.dp, spotColor = PrimaryColor)
+                .background(SurfaceColor)
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 12.dp)
+        ) {
 
+            Text(
+                text = location.name,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis, fontSize = 13.sp
+            )
+
+        }
 }
 
 @Preview

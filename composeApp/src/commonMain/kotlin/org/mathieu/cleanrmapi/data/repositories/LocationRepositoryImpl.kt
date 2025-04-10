@@ -12,12 +12,14 @@ import org.mathieu.cleanrmapi.data.remote.LocationApi
 import org.mathieu.cleanrmapi.domain.character.models.Character
 import org.mathieu.cleanrmapi.domain.location.LocationRepository
 import org.mathieu.cleanrmapi.domain.location.models.Location
-import org.mathieu.cleanrmapi.domain.location.models.LocationPreview
-
 
 internal class LocationRepositoryImpl(
     private val characterApi: CharacterApi
 ) : LocationRepository {
+
+    /** Récupère la liste des characters dans cette location
+     *
+     */
     override suspend fun getCharactersIn(locationId: Int): List<Character> {
 
         val locationLocal = GetLocationObjectIfExists(locationId)
@@ -37,6 +39,9 @@ internal class LocationRepositoryImpl(
 
     }
 
+    /** Récupère une location gràce a son id
+     *
+     */
     override suspend fun getLocation(id: Int): Location {
 
         val locationLocal = GetLocationObjectIfExists(locationId = id)
@@ -50,7 +55,9 @@ private object GetLocationObjectIfExists : KoinComponent {
     private val locationApi: LocationApi by inject()
     private val locationLocal: LocationDAO by inject()
 
-
+    /**
+     * Récupère une location avec son id localement
+     */
     suspend operator fun invoke(locationId: Int): LocationObject =
         tryToGetLocationLocally(locationId)
             .fetchRemotelyIfNotFound(locationId)

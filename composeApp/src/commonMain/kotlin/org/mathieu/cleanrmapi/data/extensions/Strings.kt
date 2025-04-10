@@ -5,3 +5,6 @@ fun List<String>.extractIdsFromUrls(): String {
         url.substringAfterLast("/")
     }
 }
+
+fun String.toIdList(): List<Int> =
+    split(",").mapNotNull { it.trim().toIntOrNull() }

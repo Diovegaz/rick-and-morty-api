@@ -1,12 +1,18 @@
 package org.mathieu.cleanrmapi.ui.screens.locationdetails
 
 import androidx.compose.animation.Crossfade
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
+import androidx.compose.foundation.basicMarquee
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -21,10 +27,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.mathieu.cleanrmapi.ui.core.composables.BackArrow
+import org.mathieu.cleanrmapi.ui.core.composables.CharacterCard
 import org.mathieu.cleanrmapi.ui.core.composables.PreviewContent
 import org.mathieu.cleanrmapi.ui.core.composables.Screen
 import org.mathieu.cleanrmapi.ui.core.theme.PrimaryColor
-/*
+import org.mathieu.cleanrmapi.ui.core.theme.SurfaceColor
+
 @Composable
 fun LocationDetailsScreen(
     navController: NavController,
@@ -47,8 +55,8 @@ fun LocationDetailsScreen(
         )
 
     }
-
 }
+
 
 @Composable
 private fun Content(
@@ -117,9 +125,17 @@ private object CharacterDetailsContent {
                 columns = GridCells.Fixed(2)
             ) {
 
+                items(state.residents) { character ->
 
+                    CharacterCard(
+                        modifier = Modifier
+                            .clickable {
+                                onAction(LocationDetailsAction.SelectedCharacter(character))
+                            },
+                        character = character
+                    )
 
-
+                }
 
             }
 
@@ -128,9 +144,30 @@ private object CharacterDetailsContent {
 
     }
 
+    @OptIn(ExperimentalFoundationApi::class)
+    @Composable
+    private fun Header(state: LocationDetailsState.Loaded) {
+
+        Column(
+            modifier = Modifier
+                .background(SurfaceColor)
+                .fillMaxWidth()
+                .padding(start = 48.dp)
+                .padding(horizontal = 16.dp, vertical = 12.dp)
+        ) {
+
+            Text(text = state.name, fontSize = 11.sp)
+            Text(text = state.type, fontSize = 11.sp)
+            Text(text = state.dimension, fontSize = 11.sp)
+
+        }
+
+    }
+}
+
 @Preview
 @Composable
 private fun LocationDetailsPreview() = PreviewContent {
     Content()
-}*/
+}
 

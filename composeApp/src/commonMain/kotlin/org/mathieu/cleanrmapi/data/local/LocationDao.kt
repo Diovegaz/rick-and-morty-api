@@ -7,6 +7,9 @@ import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 import org.mathieu.cleanrmapi.data.local.objects.LocationObject
 
+/** Dao qui permet de récuperer et d'insérer
+ * les location dans la base de données
+ */
 @Dao
 interface LocationDAO {
 
