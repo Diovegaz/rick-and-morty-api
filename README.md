@@ -1,21 +1,71 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop.
+Android Project - Rick and Morty API
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+This Android project implements an application based on the Rick and Morty API. The architecture follows a Clean Architecture approach combined with MVVM (Model-View-ViewModel) principles to ensure clear separation of concerns, improve testability, and facilitate maintenance.
 
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+Project Structure
 
+The application is structured into the following layers:
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html),
-[Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform/#compose-multiplatform),
-[Kotlin/Wasm](https://kotl.in/wasm/)…
+1. Domain Layer
 
-We would appreciate your feedback on Compose/Web and Kotlin/Wasm in the public Slack channel [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web).
-If you face any issues, please report them on [GitHub](https://github.com/JetBrains/compose-multiplatform/issues).
+Models: Defines the data models used throughout the application.
 
-You can open the web application by running the `:composeApp:wasmJsBrowserDevelopmentRun` Gradle task.
+Repositories: Interfaces defining contracts for data retrieval.
+
+Use Cases: Contain pure business logic, independent from technical details.
+
+2. Data Layer
+
+Remote: Handles interaction with the remote API (Rick and Morty API).
+
+Local: Uses Room for local data persistence.
+
+Entities: Representation of SQLite tables.
+
+DAOs: Interfaces to access the local database.
+
+Database: Abstract RoomDatabase class defining the database configuration.
+
+Repository Implementation: Implements the interfaces defined in the Domain layer by combining local and remote data.
+
+3. Presentation Layer (UI)
+
+Adopts the MVVM pattern.
+
+ViewModels: Manage view state and communicate with the Domain layer via use cases.
+
+Views (Compose): User interfaces created with Jetpack Compose.
+
+States & Events: Handling of UI states and user interactions.
+
+Technologies and Libraries Used
+
+Jetpack Compose: For declarative UI creation.
+
+Room: For local data persistence.
+
+Retrofit: For network interaction with the API.
+
+Coroutines / Flow: Simplified management of asynchronous operations.
+
+Hilt: Dependency injection.
+
+Best Practices Applied
+
+Single Source of Truth: Data originates from a single source (local database or API).
+
+Clear Separation of Concerns: Facilitates unit testing and application scalability.
+
+Dependency Injection: Simplifies dependency management and enhances modularity.
+
+Installation and Execution
+
+Clone the project and open it in Android Studio:
+
+git clone https://github.com/your-username/rick-and-morty-api.git
+
+Compile and launch the application on an emulator or physical device.
+
+Contribution
+
+Contributions are welcome! Please open an issue for suggestions or submit a pull request for improvements.
